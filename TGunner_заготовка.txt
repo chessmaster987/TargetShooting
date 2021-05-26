@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class TGunner
+{
+public:
+  TGunner(string name, void shot, double score) :
+
+    name(name), shot(shot), score(score)
+  {
+    if (score < 0)
+      throw invalid_argument("Incorrect age");
+  }
+  bool IsCanShot() const;
+  virtual void Shot() const;
+private:
+  int x;
+  int y;
+  double score
+  /*protected:
+    */
+};
+bool Gunner::IsCanShot() const
+{
+  return true;
+}
+
+string TGunner::Shot() const
+{
+  return ("Coord. x: " + x + " Coord. y:  " + score;
+}
+
+
+int main()
+{
+  TGunner gunner("Name");
+  //cout << child1.Info() << endl;
+  TGunner* pTGunner = &TGunner;
+  cout << pTGunner->Shot() << endl;
+  return 0;
+}
