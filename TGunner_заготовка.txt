@@ -17,7 +17,7 @@ public:
 private:
   int x;
   int y;
-  double score
+  double score;
   /*protected:
     */
 };
@@ -35,7 +35,6 @@ string TGunner::Shot() const
 int main()
 {
   TGunner gunner("Name");
-  //cout << child1.Info() << endl;
   TGunner* pTGunner = &TGunner;
   cout << pTGunner->Shot() << endl;
   return 0;
