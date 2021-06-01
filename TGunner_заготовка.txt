@@ -6,7 +6,6 @@ class TGunner
 {
 public:
   TGunner(string name, void shot, double score) :
-
     name(name), shot(shot), score(score)
   {
     if (score < 0)
@@ -30,7 +29,6 @@ string TGunner::Shot() const
 {
   return ("Coord. x: " + x + " Coord. y:  " + score;
 }
-
 
 int main()
 {
