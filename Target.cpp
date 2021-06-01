@@ -31,7 +31,6 @@ Target::Target(int x, int y, int score, bool shot)
     }
 }
 
-
 std::string Target::Info() const
 {
     return "Hit: " + GetShot() + (" + to_string(GetScore()) + " score)";
