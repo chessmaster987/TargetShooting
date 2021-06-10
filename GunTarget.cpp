@@ -1,7 +1,7 @@
 #include "GunTarget.h"
 #include <iostream>
 
-int GunTarget::shot(int x, int y)
+float GunTarget::shot(int x, int y)
 {
     if (currentShotsCount == getMaxShotsCount())
         std::cout << "It`s impossible to shot as max shot count is reached!\n";
@@ -23,5 +23,5 @@ int GunTarget::shot(int x, int y)
 
 size_t GunTarget::getMaxShotsCount()
 {
-    return 11;
+    return 20;
 }
