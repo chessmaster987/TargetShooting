@@ -5,20 +5,22 @@ using std::string;
 class Shooter
 {
 public:
+	Shooter();
 	Shooter(string name);
 
 	// геттери
 	string getName() const;
-	size_t getShotsRate() const;
+	float getShotsRate() const;
 	// сеттери
 	void setName(string name);
-	void setShotsRate(size_t shotsRate);
+	void setShotsRate(float shotsRate);
 
-	void addShotsRate(size_t rate);
+	void addShotsRate(float rate);
 
 
 private:
 	string name;
-	size_t shotsRate;
+	float shotsRate;
 };
+
 
