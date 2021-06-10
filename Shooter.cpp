@@ -1,4 +1,11 @@
 #include "Shooter.h"
+
+Shooter::Shooter()
+{
+	setName("No name");
+	setShotsRate(0);
+}
+
 Shooter::Shooter(string name)
 {
 	setName(name);
@@ -10,7 +17,7 @@ string Shooter::getName() const
 	return name;
 }
 
-size_t Shooter::getShotsRate() const
+float Shooter::getShotsRate() const
 {
 	return shotsRate;
 }
@@ -23,14 +30,12 @@ void Shooter::setName(string name)
 		this->name = name;
 }
 
-void Shooter::setShotsRate(size_t shotsRate)
+void Shooter::setShotsRate(float shotsRate)
 {
 	this->shotsRate = shotsRate;
 }
 
-void Shooter::addShotsRate(size_t rate)
+void Shooter::addShotsRate(float rate)
 {
 	shotsRate += rate;
 }
-
-
