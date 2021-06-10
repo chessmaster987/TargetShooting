@@ -1,27 +1,27 @@
 #include "BiathlonTarget.h"
 #include <iostream>
 
-int BiathlonTarget::shot(int x, int y)
+float BiathlonTarget::shot(int x, int y)
 {
     if (currentShotsCount == getMaxShotsCount())
         std::cout << "It`s impossible to shot as max shot count is reached!\n";
     ++currentShotsCount;
-    int maxRange = 10;
+
+    int maxRange = 5; 
+
     if(abs(x) > maxRange && abs(y) > maxRange)
     return 0;
-    int max = abs(x) > abs(y) ? abs(x) : abs(y);
-    if (max >= 8)
-        return 1;
-    if (max >= 5)
-        return 2;
-    if (max >= 3)
-        return 3;
-    if (max >= 1)
-        return 4;
-    return 5;
+
+    if (x == 0 && y == 0)
+        return 7;
+
+    if (x == 0 && abs(y) == maxRange || y == 0 && abs(x) == maxRange)
+        return 1.5;
+    
+    return 3;
 }
 
 size_t BiathlonTarget::getMaxShotsCount()
 {
-    return 9;
+    return 10;
 }
