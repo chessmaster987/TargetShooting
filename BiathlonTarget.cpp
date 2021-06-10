@@ -23,5 +23,5 @@ float BiathlonTarget::shot(int x, int y)
 
 size_t BiathlonTarget::getMaxShotsCount()
 {
-    return 10;
+    return 9;
 }
