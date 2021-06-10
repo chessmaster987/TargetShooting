@@ -1,20 +1,81 @@
-// main.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
 #include <iostream>
+#include <Windows.h>
+#include <ctime>
+
+#include "Shooter.h"
+#include "AbstractTarget.h"
+#include "BiathlonTarget.h"
+#include "GunTarget.h"
+
+using namespace std;
+
+void startGame();
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	// РґР»СЏ РіРµРЅРµСЂР°С†С–С— РІРёРїР°РґРєРѕРІРёС… С‡РёСЃРµР»
+	srand(size_t(time(NULL)));
+	
+	// РїРѕС‡РёРЅР°С”РјРѕ РіСЂСѓ
+	startGame();
+
+	return 0;
 }
 
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
+void startGame()
+{
+	// РїРµСЂРµРјРѕР¶РЅРёР№ СЂС–РІРµРЅСЊ
+	const size_t winRate = 15;
 
-// Советы по началу работы
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+	// СЃС‚РІРѕСЂСЋС”РјРѕ РґРІР° СЃС‚СЂС–Р»С†СЏ
+	Shooter* bob = new Shooter("Bob");
+	Shooter* mike = new Shooter("Mike");
+
+	// СЃС‚РІРѕСЂСЋС”РјРѕ РґРІС– РјС–С€РµРЅС–
+	AbstractTarget* bt = new BiathlonTarget();
+	AbstractTarget* gt = new GunTarget();
+
+	// С–РјС–С‚СѓС”РјРѕ РіСЂСѓ
+
+	size_t scores = 0;
+	int x = 0;
+	int y = 0;
+	while (bob->getShotsRate() <= winRate && mike->getShotsRate() <= winRate)
+	{
+		if (!bt->canShot() || !gt->canShot())
+		{
+			cout << "Max target shots reached... Game over!\n";
+			break;
+		}
+		Sleep(300);
+		if (bt->canShot())
+		{
+			x = (rand() % 40) - 20;
+			y = (rand() % 40) - 20;
+			scores = bt->shot(x, y);
+			bob->addShotsRate(scores);
+			cout << bob->getName() << " shots at biathlon target with X[" << x << ";" << y << "]Y coords and gets +" << scores << " scores!\n";
+		}
+		Sleep(300);
+		if (gt->canShot())
+		{
+			x = (rand() % 40) - 20;
+			y = (rand() % 40) - 20;
+			scores = gt->shot(x, y);
+			mike->addShotsRate(scores);
+			cout << mike->getName() << " shots at gun target with X[" << x << ";" << y << "]Y coords and gets +" << scores << " scores!\n";
+		}
+		cout << bob->getName() << " [" << bob->getShotsRate() << "] vs " << mike->getName() << " [" << mike->getShotsRate() << "]\n";
+		Sleep(500);
+	}
+	string message;
+	bob->getShotsRate() > mike->getShotsRate() ? message = "Bob has won the game!" : bob->getShotsRate() < mike->getShotsRate() ? message = "Mike has won the game!" : "Drawn game!";
+
+	cout << message << endl;
+	system("pause");
+
+	delete bob;
+	delete mike;
+	delete gt;
+	delete bt;
+}
