@@ -1,5 +1,5 @@
 #pragma once
-// абстрактна мішень
+//Р°Р±СЃС‚СЂР°РєС‚РЅР° РјС–С€РµРЅСЊ
 class AbstractTarget
 {
 public:
