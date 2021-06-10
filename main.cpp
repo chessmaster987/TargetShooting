@@ -1,7 +1,3 @@
-#include <iostream>
-#include <Windows.h>
-#include <ctime>
-
 #include "Shooter.h"
 #include "AbstractTarget.h"
 #include "BiathlonTarget.h"
@@ -18,7 +14,7 @@ int main()
 {
 	// для генерації випадкових чисел
 	srand(size_t(time(NULL)));
-	
+
 	// починаємо гру
 	startGame();
 
@@ -30,7 +26,7 @@ void startGame()
 	// переможний рівень
 	const size_t winRate = 10;
 
-	// створюємо два стрільця
+	// створюємо три стрільця
 	Shooter* user1 = new Shooter();
 	Shooter* user2 = new Shooter();
 	Shooter* user3 = new Shooter();
@@ -39,15 +35,34 @@ void startGame()
 	AbstractTarget* target = nullptr;
 
 	// змінна для збереження вибору мішені
-	char choise = 0;
-	cout << "[1] - Biathlon target\n[2] - Gun target\nChoose a target: ";
-	cin >> choise;
-	cin.ignore();
-	if (choise == 1)
+	string choise;
+	bool isGood = false;
+	int ch = 0;
+	do
+	{
+		try
+		{
+			cout << "[1] - Biathlon target\n[2] - Gun target\nChoose a target: ";
+			getline(cin, choise);
+			ch = stoi(choise);
+			isGood = true;
+			if (ch != 1 && ch != 2)
+			{
+				isGood = false;
+				throw invalid_argument("Please, input only 1 or 2!\n");
+			}
+		}
+		catch(const exception& ex)
+		{
+			cout << "Wrong type! "<< ex.what() <<"\nTry again.\n";
+		}
+
+	} while (!isGood);
+
+	if (ch == 1)
 		target = new BiathlonTarget();
 	else
 		target = new GunTarget();
-
 	string tempName;
 	cout << "Enter first shooter name: ";
 	getline(cin, tempName);
@@ -129,3 +144,4 @@ void startGame()
 	delete user3;
 	delete target;
 }
+
