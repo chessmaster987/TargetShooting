@@ -4,7 +4,7 @@
 class GunTarget
 	: public AbstractTarget
 {
-	int shot(int x, int y) override;
+	float shot(int x, int y) override;
 	size_t getMaxShotsCount() override;
 };
 
