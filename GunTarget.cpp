@@ -23,5 +23,5 @@ float GunTarget::shot(int x, int y)
 
 size_t GunTarget::getMaxShotsCount()
 {
-    return 20;
+    return 21;
 }
