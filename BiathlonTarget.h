@@ -1,6 +1,13 @@
-#ifndef BIATHLONTARGET_H_INCLUDED
-#define BIATHLONTARGET_H_INCLUDED
+#pragma once
+#include "AbstractTarget.h"
+// біатлонна мішень
+class BiathlonTarget :
+    public AbstractTarget
+{
+public:
+	int shot(int x, int y) override;
+	size_t getMaxShotsCount() override;
+private:
+};
 
 
-
-#endif // BIATHLONTARGET_H_INCLUDED
