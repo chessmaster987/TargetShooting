@@ -1,12 +1,32 @@
+
+/*
+Варіант 6а. Створення ієрархії класів на тему «Стрільба по мішенях»
+Створити класи: «Абстрактна мішень» (методи «чи можна ще стріляти», «постріл», «координати цілі»),
+підкласи «Біатлонна мішень», «Мішень для стрільби з гвинтівки».
+Метод постріл задає координати на мішені, а його результатом буде кількість балів, отримана стрілком.
+Метод координати цілі задає куди стріляти.
+Створити клас «Стрілок», який може викликати метод постріл для мішені.
+*/
+
+//#include "stdafx.h"
+
+#include <iostream>
+#include <Windows.h>
+#include <string>
+
 #include "Shooter.h"
 #include "AbstractTarget.h"
 #include "BiathlonTarget.h"
 #include "GunTarget.h"
-#include <string>
+
+using namespace std;
 
 #define LINE cout <<"---------------------------------------------------------------------------\n";
 
-using namespace std;
+#define MAXRANGEBIATLON 5
+#define MAXRANGEGUN 7
+#define MAXSHOTSCOUNTBICATLON 12
+#define MAXSHOTSCOUNTGUN 21
 
 void startGame();
 
@@ -24,7 +44,7 @@ int main()
 void startGame()
 {
 	// переможний рівень
-	const size_t winRate = 10;
+	const size_t winRate = 15;
 
 	// створюємо три стрільця
 	Shooter* user1 = new Shooter();
@@ -59,27 +79,32 @@ void startGame()
 
 	} while (!isGood);
 
-	if (ch == 1)
-		target = new BiathlonTarget();
+	if(ch == 1 )
+		target = new BiathlonTarget(MAXSHOTSCOUNTBICATLON, MAXRANGEBIATLON);
 	else
-		target = new GunTarget();
+		target = new GunTarget(MAXSHOTSCOUNTGUN, MAXRANGEGUN);
+
+	user1->SetTarget(target);
+	user2->SetTarget(target);
+	user3->SetTarget(target);
+
 	string tempName;
 	cout << "Enter first shooter name: ";
 	getline(cin, tempName);
-	user1->setName(tempName);
+	user1->SetName(tempName);
 	cout << "Enter second shooter name: ";
 	getline(cin, tempName);
-	user2->setName(tempName);
+	user2->SetName(tempName);
 	cout << "Enter third shooter name: ";
 	getline(cin, tempName);
-	user3->setName(tempName);
+	user3->SetName(tempName);
 
 	// імітуємо гру
 
 	float scores = 0;
 	int x = 0;
 	int y = 0;
-	while (user1->getShotsRate() <= winRate && user2->getShotsRate() <= winRate && user3->getShotsRate() <= winRate)
+	while (user1->GetShotsRate() <= winRate && user2->GetShotsRate() <= winRate && user3->GetShotsRate() <= winRate)
 	{
 		if (!target->canShot())
 		{
@@ -87,50 +112,45 @@ void startGame()
 			break;
 		}
 		Sleep(300);
-		if (target->canShot())
-		{
-			x = (rand() % 40) - 20;
-			y = (rand() % 40) - 20;
-			scores = target->shot(x, y);
-			user1->addShotsRate(scores);
-			cout << user1->getName() << " shots at biathlon target with X[" << x << ";" << y << "]Y coords and gets +" << scores << " scores!\n";
-		}
+			scores = user1->Shot(x, y);
+			cout << user1->GetName() << " shots at biathlon target with X[" << x << ";" << y << "]Y coords and gets +" << scores << " scores!\n";
+		//}
 		Sleep(300);
-		if (target->canShot())
+		if (!target->canShot())
 		{
-			x = (rand() % 40) - 20;
-			y = (rand() % 40) - 20;
-			scores = target->shot(x, y);
-			user2->addShotsRate(scores);
-			cout << user2->getName() << " shots at gun target with X[" << x << ";" << y << "]Y coords and gets +" << scores << " scores!\n";
+			cout << "Max target shots reached... Game over!\n";
+			break;
 		}
+			scores = user2->Shot(x, y);
+			cout << user2->GetName() << " shots at gun target with X[" << x << ";" << y << "]Y coords and gets +" << scores << " scores!\n";
+		
 		Sleep(300);
-		if (target->canShot())
+		if (!target->canShot())
 		{
-			x = (rand() % 40) - 20;
-			y = (rand() % 40) - 20;
-			scores = target->shot(x, y);
-			user3->addShotsRate(scores);
-			cout << user3->getName() << " shots at gun target with X[" << x << ";" << y << "]Y coords and gets +" << scores << " scores!\n";
+			cout << "Max target shots reached... Game over!\n";
+			break;
 		}
-		cout << user1->getName() << " [" << user1->getShotsRate() << "] vs " << user2->getName() << " [" << user2->getShotsRate() << "] vs " << user3->getName() << "[" << user3->getShotsRate() << "]\n";
+			scores = user3->Shot(x, y);
+			cout << user3->GetName() << " shots at gun target with X[" << x << ";" << y << "]Y coords and gets +" << scores << " scores!\n";
+		//}
+		cout << user1->GetName() << " [" << user1->GetShotsRate() << "] vs " << user2->GetName() << " [" << user2->GetShotsRate() << "] vs " << user3->GetName() << "[" << user3->GetShotsRate() << "]\n";
 		LINE
 		Sleep(500);
 	}
 	string message;
-	if (user1->getShotsRate() > user2->getShotsRate() && user1->getShotsRate() > user3->getShotsRate())
+	if (user1->GetShotsRate() > user2->GetShotsRate() && user1->GetShotsRate() > user3->GetShotsRate())
 	{
-		message = user1->getName() + " has won the game!\n";
+		message = user1->GetName() + " has won the game!\n";
 	}
-	else if (user2->getShotsRate() > user1->getShotsRate() && user2->getShotsRate() > user3->getShotsRate())
+	else if (user2->GetShotsRate() > user1->GetShotsRate() && user2->GetShotsRate() > user3->GetShotsRate())
 	{
-		message = user2->getName() + " has won the game!\n";
+		message = user2->GetName() + " has won the game!\n";
 	}
-	else if (user3->getShotsRate() > user1->getShotsRate() && user3->getShotsRate() > user2->getShotsRate())
+	else if (user3->GetShotsRate() > user1->GetShotsRate() && user3->GetShotsRate() > user2->GetShotsRate())
 	{
-		message = user3->getName() + " has won the game!\n";
+		message = user3->GetName() + " has won the game!\n";
 	}
-	else if (user2->getShotsRate() == user1->getShotsRate() && user2->getShotsRate() == user3->getShotsRate())
+	else if (user2->GetShotsRate() == user1->GetShotsRate() && user2->GetShotsRate() == user3->GetShotsRate())
 	{
 		message = "Drawn game!\n";
 	}
@@ -144,4 +164,5 @@ void startGame()
 	delete user3;
 	delete target;
 }
+
 
