@@ -4,7 +4,10 @@
 class GunTarget
 	: public AbstractTarget
 {
-	float shot(int x, int y) override;
-	size_t getMaxShotsCount() override;
-};
+public:
+	GunTarget();
+	GunTarget(size_t, int);
 
+	float Shot(int x, int y) override;
+	//size_t getMaxShotsCount() const override;
+};
