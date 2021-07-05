@@ -1,41 +1,39 @@
 #include "Shooter.h"
 
-Shooter::Shooter()
-{
-	setName("No name");
-	setShotsRate(0);
-}
+Shooter::Shooter(): name("No name"), shotsRate(0) {}
 
-Shooter::Shooter(string name)
-{
-	setName(name);
-	setShotsRate(0);
-}
+Shooter::Shooter(string name): name(name), shotsRate(0) {}
 
-string Shooter::getName() const
+string Shooter::GetName() const
 {
 	return name;
 }
 
-float Shooter::getShotsRate() const
-{
+float Shooter::GetShotsRate() const{
 	return shotsRate;
 }
 
-void Shooter::setName(string name)
-{
+void Shooter::SetName(string name){
 	if (name.empty())
 		this->name = "no name";
 	else
 		this->name = name;
 }
 
-void Shooter::setShotsRate(float shotsRate)
-{
+void Shooter::SetShotsRate(float shotsRate){
 	this->shotsRate = shotsRate;
 }
 
-void Shooter::addShotsRate(float rate)
-{
+void Shooter::AddShotsRate(float rate){
 	shotsRate += rate;
+}
+
+float Shooter::Shot(int& x, int& y){
+	x = y = (rand() % 40) - 20;
+	float scores = target->Shot(x, y);
+	shotsRate += scores;
+	return scores;
+}
+void Shooter::SetTarget(AbstractTarget* target){
+	this->target = target;
 }
