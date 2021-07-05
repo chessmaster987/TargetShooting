@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "AbstractTarget.h"
 using std::string;
 // клас стрільця
 class Shooter
@@ -9,18 +10,22 @@ public:
 	Shooter(string name);
 
 	// геттери
-	string getName() const;
-	float getShotsRate() const;
+	string GetName() const;
+	float GetShotsRate() const;
+
 	// сеттери
-	void setName(string name);
-	void setShotsRate(float shotsRate);
+	void SetName(string name);
+	void SetShotsRate(float shotsRate);
+	void SetTarget(AbstractTarget* target);
 
-	void addShotsRate(float rate);
+	void AddShotsRate(float rate);
 
+	float Shot(int& x, int& y);
 
 private:
 	string name;
 	float shotsRate;
+	AbstractTarget* target;
 };
 
 
