@@ -1,19 +1,20 @@
 #pragma once
-#include <iostream>
+
+#include <string>
+
 #include "AbstractTarget.h"
+
 using std::string;
-// клас стрільця
+
 class Shooter
 {
 public:
 	Shooter();
 	Shooter(string name);
 
-	// геттери
 	string GetName() const;
 	float GetShotsRate() const;
 
-	// сеттери
 	void SetName(string name);
 	void SetShotsRate(float shotsRate);
 	void SetTarget(AbstractTarget* target);
@@ -27,5 +28,3 @@ private:
 	float shotsRate;
 	AbstractTarget* target;
 };
-
-

@@ -1,32 +1,53 @@
-# Prerequisites
-*.d
+# Build outputs
+Debug/
+Release/
+x64/
+x86/
+TargetShooting/Debug/
+TargetShooting/Release/
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
+# Visual Studio cache and local settings
+.vs/
+*.VC.db
+*.VC.opendb
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# MSVC intermediate and debug files
 *.obj
-
-# Precompiled Headers
-*.gch
+*.idb
+*.ilk
+*.ipch
 *.pch
+*.pdb
+*.tlog
+*.lastbuildstate
+*.recipe
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
+# Executables and libraries
 *.exe
+*.dll
+*.lib
+*.exp
+
+# Generic native build artifacts
+*.o
 *.out
 *.app
+*.a
+*.so
+*.dylib
+*.lo
+*.la
+*.lai
+*.slo
+*.gch
+*.d
+*.mod
+*.smod

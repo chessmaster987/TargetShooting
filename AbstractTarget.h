@@ -1,26 +1,28 @@
 #pragma once
-// абстрактна мішень
+
+#include <cstddef>
+
 class AbstractTarget
 {
 public:
 	AbstractTarget();
-	AbstractTarget(size_t, int);
-	size_t currentShotsCount;// = 0;
+	AbstractTarget(size_t maxShotsCount, int maxRange);
+	virtual ~AbstractTarget() = default;
 
 	bool canShot() const;
+
+	virtual float Shot(int x, int y) = 0;
 
 	size_t GetMaxShotsCount() const;
 	int GetMaxRange() const;
 
-	void SetMaxShotsCount(size_t);
-	void SetMaxRange(int);
+	void SetMaxShotsCount(size_t maxShotsCount);
+	void SetMaxRange(int maxRange);
 
-	virtual float Shot(int x, int y) abstract;
-	// характеристики мишени
 private:
 	size_t maxShotsCount;
+
 protected:
-	//size_t currentShotsCount;// = 0;
+	size_t currentShotsCount;
 	int maxRange;
 };
-
