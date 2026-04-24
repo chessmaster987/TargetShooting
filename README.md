@@ -1,7 +1,13 @@
 # Target_Shooting
 
+![C++](https://img.shields.io/badge/language-C++-blue)
+![OOP](https://img.shields.io/badge/paradigm-OOP-orange)
+![UML](https://img.shields.io/badge/design-UML-green)
+
 `TargetShooting` is a C++ console application that simulates a small target shooting competition between three shooters.  
 The project demonstrates inheritance, polymorphism, encapsulation, and abstract classes through a simple game loop with two different target types.
+
+---
 
 ## Overview
 
@@ -17,6 +23,47 @@ Each shooter fires at the selected target until one of these conditions is met:
 - the target reaches its maximum allowed number of shots.
 
 At the end, the program prints the winner or reports a draw.
+
+---
+
+## System Design
+
+To better understand the internal structure and logic of the application, the project includes UML diagrams.
+
+---
+
+### Class Diagram
+
+This diagram represents the static structure of the system, including classes, their attributes, methods, and relationships.
+
+It highlights:
+- inheritance between `AbstractTarget` and its derived classes;
+- encapsulation of shooter data;
+- polymorphic behavior via the `Shot` method;
+- usage of `unique_ptr` in the game controller.
+
+<p align="center">
+  <img src="docs/class_diagram.png" alt="Class Diagram" width="800"/>
+</p>
+
+---
+
+### Game Flow (Flowchart)
+
+This flowchart illustrates how the game works step-by-step.
+
+It shows:
+- game initialization;
+- target selection;
+- shooting loop for all players;
+- conditions for ending the game;
+- winner determination logic.
+
+<p align="center">
+  <img src="docs/flowchart.png" alt="Game Flowchart" width="700"/>
+</p>
+
+---
 
 ## Class Structure
 
@@ -39,6 +86,8 @@ Key members:
 - `size_t GetMaxShotsCount() const`
 - `int GetMaxRange() const`
 
+---
+
 ### `BiathlonTarget`
 
 Derived target with a square hit zone in the range `[-5; 5]`.
@@ -53,6 +102,8 @@ Scoring rules:
 Maximum shots:
 
 - `12`
+
+---
 
 ### `GunTarget`
 
@@ -70,6 +121,8 @@ Scoring rules:
 Maximum shots:
 
 - `21`
+
+---
 
 ### `Shooter`
 
@@ -92,6 +145,8 @@ Key members:
 - `void AddShotsRate(float rate)`
 - `float Shot(int& x, int& y)`
 
+---
+
 ## Game Rules
 
 - There are always three shooters in the match.
@@ -100,6 +155,8 @@ Key members:
 - Shot coordinates are generated randomly in the range `[-20; 20]`.
 - The winner is the shooter with the highest score once the round ends.
 - If all results are equal, the game ends in a draw.
+
+---
 
 ## Project Goals
 
